@@ -1,14 +1,14 @@
 //
-//  xTMessageTests.swift
-//  xTMessageTests
+//  xTChatTests.swift
+//  xTChatTests
 //
 //  Created by Yasir Kılınç on 29.03.2023.
 //
 
 import XCTest
-@testable import xTMessage
+@testable import xTChat
 
-final class xTMessageTests: XCTestCase {
+final class xTChatTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
