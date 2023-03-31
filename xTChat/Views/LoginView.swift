@@ -9,13 +9,12 @@ import SwiftUI
 
 
 struct LoginView: View {
-    
-    @State private var userName: String = ""
-    @State private var password: String = ""
-    @State var isLogged:Bool = false
+    @StateObject private var viewModel = LoginViewModel()
     
     var body: some View {
         NavigationStack{
+            
+            
             
             ZStack{
                 Color.blue.ignoresSafeArea()
@@ -27,7 +26,7 @@ struct LoginView: View {
                     
                     TextField(
                         "Kullanıcı Adı",
-                        text: $userName
+                        text: $viewModel.loginModel.userName
                     )
                     .padding()
                     .frame(width: 300, height: 50)
@@ -38,7 +37,7 @@ struct LoginView: View {
                     
                     SecureField(
                         "Şifre",
-                        text: $password
+                        text: $viewModel.loginModel.password
                     )
                     .padding()
                     .frame(width: 300, height: 50)
@@ -49,7 +48,7 @@ struct LoginView: View {
                     
                     
                     Button("Giriş Yap"){
-                        login()
+                        viewModel.login()
                     }
                     .foregroundColor(.blue)
                     .frame(width: 300, height: 50)
@@ -59,7 +58,7 @@ struct LoginView: View {
                     
                 }
             }
-            .navigationDestination(isPresented: $isLogged){
+            .navigationDestination(isPresented: $viewModel.isLogged){
                 MainView()
             }
         }
@@ -67,14 +66,6 @@ struct LoginView: View {
         .navigationBarBackButtonHidden(true)
     }
     
-    func login(){
-        if userName == "exTypen" && password == "123"{
-            isLogged = true
-            print("okey")
-        }else{
-            
-        }
-    }
 }
 
 struct LoginView_Previews: PreviewProvider {
