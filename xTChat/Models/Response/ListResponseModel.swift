@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ListResponseModel<T>:Codable{
+struct ListResponseModel<T:Codable>:Decodable,Encodable{
     var data:[T]
     var success:Bool
     var message:String

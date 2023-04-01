@@ -6,22 +6,43 @@
 //
 
 import Foundation
+import Alamofire
+
 
 extension LoginView{
+    
+    struct User:Encodable, Decodable{
+        var id:Int
+        var userName:String
+        var apiKey:String
+        var balance:Int
+    }
+    
     @MainActor class LoginViewModel:ObservableObject{
         @Published var loginModel:LoginModel = LoginModel(userName: "", password: "")
         @Published var isLogged:Bool = false
-        
-        func login(){
-            print(loginModel)
+        @Published var error:String = ""
+    
             
-            let url = ""
-            
-            
-            if loginModel.userName == "exTypen"{
-                print("success")
-                isLogged = true
+        func login(){            
+            NetworkManager.shared.post(type: SingleResponseModel<TokenModel>.self, url: SecuredConstants().baseApiUrl + "api/Auth/login", parameters: ["userName": loginModel.userName, "password": loginModel.password]) { result in
+                DispatchQueue.main.async {
+                    switch result{
+                    case .success(let response):
+                        switch response.success{
+                        case true:
+                            self.isLogged = true
+                            self.error = ""
+                        case false:
+                            self.isLogged = false
+                            self.error = response.message
+                        }
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
             }
+
         }
     }
 }

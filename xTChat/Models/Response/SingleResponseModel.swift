@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct SingleResponseModel<T>:Codable{
-    var data:T
+struct SingleResponseModel<T:Codable>:Codable{
+    var data:T?
     var success:Bool
     var message:String
 }

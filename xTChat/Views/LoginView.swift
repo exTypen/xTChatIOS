@@ -14,8 +14,6 @@ struct LoginView: View {
     var body: some View {
         NavigationStack{
             
-            
-            
             ZStack{
                 Color.blue.ignoresSafeArea()
                 VStack{
@@ -23,11 +21,17 @@ struct LoginView: View {
                         .foregroundColor(.white)
                         .font(.system(size: 50))
                     
-                    
-                    TextField(
-                        "Kullanıcı Adı",
-                        text: $viewModel.loginModel.userName
-                    )
+                    Group{
+                        TextField(
+                            "Kullanıcı Adı",
+                            text: $viewModel.loginModel.userName
+                        )
+                        
+                        SecureField(
+                            "Şifre",
+                            text: $viewModel.loginModel.password
+                        )
+                    }
                     .padding()
                     .frame(width: 300, height: 50)
                     .background(.white)
@@ -35,16 +39,8 @@ struct LoginView: View {
                     .textInputAutocapitalization(.never)
                     
                     
-                    SecureField(
-                        "Şifre",
-                        text: $viewModel.loginModel.password
-                    )
-                    .padding()
-                    .frame(width: 300, height: 50)
-                    .background(.white)
-                    .cornerRadius(10)
-                    .textInputAutocapitalization(.never)
-                    
+                    Text(viewModel.error)
+                        .foregroundColor(.red)
                     
                     
                     Button("Giriş Yap"){

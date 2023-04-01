@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LoginModel{
+struct LoginModel:Codable{
     var userName:String
     var password:String
 }
